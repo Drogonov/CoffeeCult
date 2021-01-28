@@ -3,16 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		840B2DF425C2E5E70022B812 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B2DF325C2E5E70022B812 /* AppDelegate.swift */; };
 		840B2DF625C2E5E70022B812 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B2DF525C2E5E70022B812 /* SceneDelegate.swift */; };
-		840B2DF825C2E5E70022B812 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B2DF725C2E5E70022B812 /* ViewController.swift */; };
 		840B2DFB25C2E5E70022B812 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840B2DF925C2E5E70022B812 /* Main.storyboard */; };
 		840B2DFD25C2E5E90022B812 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 840B2DFC25C2E5E90022B812 /* Assets.xcassets */; };
 		840B2E0025C2E5E90022B812 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840B2DFE25C2E5E90022B812 /* LaunchScreen.storyboard */; };
+		8466F33225C2FBAD002A97E3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8466F33125C2FBAD002A97E3 /* GoogleService-Info.plist */; };
+		8466F33625C2FC8C002A97E3 /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466F33525C2FC8C002A97E3 /* MainTabVC.swift */; };
 		A4F8A57EC3126BA35F8C8C15 /* Pods_CoffeeCult.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CAB0C1D9E4886B4ABE7891 /* Pods_CoffeeCult.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,11 +24,12 @@
 		840B2DF025C2E5E70022B812 /* CoffeeCult.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeCult.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		840B2DF325C2E5E70022B812 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		840B2DF525C2E5E70022B812 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		840B2DF725C2E5E70022B812 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		840B2DFA25C2E5E70022B812 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		840B2DFC25C2E5E90022B812 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		840B2DFF25C2E5E90022B812 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		840B2E0125C2E5E90022B812 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8466F33125C2FBAD002A97E3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8466F33525C2FC8C002A97E3 /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +58,6 @@
 				7B0F9108D2723965A9828D26 /* Pods-CoffeeCult.debug.xcconfig */,
 				1734F6C1F0846EF6216FFC41 /* Pods-CoffeeCult.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -83,11 +84,12 @@
 			children = (
 				840B2DF325C2E5E70022B812 /* AppDelegate.swift */,
 				840B2DF525C2E5E70022B812 /* SceneDelegate.swift */,
-				840B2DF725C2E5E70022B812 /* ViewController.swift */,
 				840B2DF925C2E5E70022B812 /* Main.storyboard */,
 				840B2DFC25C2E5E90022B812 /* Assets.xcassets */,
 				840B2DFE25C2E5E90022B812 /* LaunchScreen.storyboard */,
 				840B2E0125C2E5E90022B812 /* Info.plist */,
+				8466F33125C2FBAD002A97E3 /* GoogleService-Info.plist */,
+				8466F33525C2FC8C002A97E3 /* MainTabVC.swift */,
 			);
 			path = CoffeeCult;
 			sourceTree = "<group>";
@@ -152,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				840B2E0025C2E5E90022B812 /* LaunchScreen.storyboard in Resources */,
+				8466F33225C2FBAD002A97E3 /* GoogleService-Info.plist in Resources */,
 				840B2DFD25C2E5E90022B812 /* Assets.xcassets in Resources */,
 				840B2DFB25C2E5E70022B812 /* Main.storyboard in Resources */,
 			);
@@ -206,8 +209,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				840B2DF825C2E5E70022B812 /* ViewController.swift in Sources */,
 				840B2DF425C2E5E70022B812 /* AppDelegate.swift in Sources */,
+				8466F33625C2FC8C002A97E3 /* MainTabVC.swift in Sources */,
 				840B2DF625C2E5E70022B812 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

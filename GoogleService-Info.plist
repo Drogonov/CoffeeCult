@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>115954374872-rp75cd7nsnfke6650sc20h7t4a8gf75c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.115954374872-rp75cd7nsnfke6650sc20h7t4a8gf75c</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBMoE4Q1rM3vD7UGzOngQG_sdVxB4JZhVY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>115954374872</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.antondrogonov.CoffeeCult</string>
+	<key>PROJECT_ID</key>
+	<string>coffeecult-e11ef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>coffeecult-e11ef.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:115954374872:ios:f73a348bc845f4948a9fad</string>
+	<key>DATABASE_URL</key>
+	<string>https://coffeecult-e11ef-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
