@@ -13,9 +13,13 @@
 		840B2DFB25C2E5E70022B812 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840B2DF925C2E5E70022B812 /* Main.storyboard */; };
 		840B2DFD25C2E5E90022B812 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 840B2DFC25C2E5E90022B812 /* Assets.xcassets */; };
 		840B2E0025C2E5E90022B812 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840B2DFE25C2E5E90022B812 /* LaunchScreen.storyboard */; };
+		A4F8A57EC3126BA35F8C8C15 /* Pods_CoffeeCult.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CAB0C1D9E4886B4ABE7891 /* Pods_CoffeeCult.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1734F6C1F0846EF6216FFC41 /* Pods-CoffeeCult.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeCult.release.xcconfig"; path = "Target Support Files/Pods-CoffeeCult/Pods-CoffeeCult.release.xcconfig"; sourceTree = "<group>"; };
+		44CAB0C1D9E4886B4ABE7891 /* Pods_CoffeeCult.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeCult.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B0F9108D2723965A9828D26 /* Pods-CoffeeCult.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeCult.debug.xcconfig"; path = "Target Support Files/Pods-CoffeeCult/Pods-CoffeeCult.debug.xcconfig"; sourceTree = "<group>"; };
 		840B2DF025C2E5E70022B812 /* CoffeeCult.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeCult.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		840B2DF325C2E5E70022B812 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		840B2DF525C2E5E70022B812 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -31,17 +35,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4F8A57EC3126BA35F8C8C15 /* Pods_CoffeeCult.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		282686DFAAC0800AD12B3C62 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44CAB0C1D9E4886B4ABE7891 /* Pods_CoffeeCult.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78ED3D69A35174E7D7AD566A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7B0F9108D2723965A9828D26 /* Pods-CoffeeCult.debug.xcconfig */,
+				1734F6C1F0846EF6216FFC41 /* Pods-CoffeeCult.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		840B2DE725C2E5E70022B812 = {
 			isa = PBXGroup;
 			children = (
 				840B2DF225C2E5E70022B812 /* CoffeeCult */,
 				840B2DF125C2E5E70022B812 /* Products */,
+				78ED3D69A35174E7D7AD566A /* Pods */,
+				282686DFAAC0800AD12B3C62 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,9 +99,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 840B2E0425C2E5E90022B812 /* Build configuration list for PBXNativeTarget "CoffeeCult" */;
 			buildPhases = (
+				F2FAAE609F2CB8A385187696 /* [CP] Check Pods Manifest.lock */,
 				840B2DEC25C2E5E70022B812 /* Sources */,
 				840B2DED25C2E5E70022B812 /* Frameworks */,
 				840B2DEE25C2E5E70022B812 /* Resources */,
+				714E72119A71B03C538DC699 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		714E72119A71B03C538DC699 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoffeeCult/Pods-CoffeeCult-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoffeeCult/Pods-CoffeeCult-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoffeeCult/Pods-CoffeeCult-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2FAAE609F2CB8A385187696 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CoffeeCult-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		840B2DEC25C2E5E70022B812 /* Sources */ = {
@@ -283,6 +352,7 @@
 		};
 		840B2E0525C2E5E90022B812 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0F9108D2723965A9828D26 /* Pods-CoffeeCult.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -302,6 +372,7 @@
 		};
 		840B2E0625C2E5E90022B812 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1734F6C1F0846EF6216FFC41 /* Pods-CoffeeCult.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
