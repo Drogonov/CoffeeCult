@@ -8,11 +8,20 @@
 import Foundation
 import RealmSwift
 
-public struct Character {
-    public let identifier: Int
+public struct Character: Hashable {
+    public let identifier: String
     public let name: String
     public let realName: String
     public let publisher: Publisher?
+    
+    public static func ==(lhs: Character, rhs: Character) -> Bool {
+        return lhs.identifier == rhs.identifier && lhs.name == rhs.name
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
+        hasher.combine(name)
+    }
 }
 
 extension Character: Persistable {
@@ -39,7 +48,7 @@ extension Character: Persistable {
 extension Character {
 
     public enum PropertyValue: PropertyValueType {
-        case identifier(Int)
+        case identifier(String)
         case name(String)
         case realName(String)
         case publisher(Publisher?)

@@ -11,7 +11,8 @@ import Firebase
 class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     
     // MARK: - Properties
-    
+   
+    let defaults = UserDefaults.standard
 
     private var espressoViewController: EspressoVC!
     private var alternativeViewController: AlternativeBrewVC!
@@ -19,6 +20,8 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
 //    private var knowledgeViewController: KnowledgeBaseVC!
 //    private var shopViewController: ShopVC!
     
+    private var loadingVC = LoadingViewController()
+    private var loadingView = LoadingView()
     private var loginVC = LoginVC()
     
     private var user: User? {
@@ -42,58 +45,106 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     // MARK: - Lifecycle
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        checkIfUserIsLoggedIn()
-//        signOut()
+        configureUI()
+        checkIfUserIsLoggedIn { (wasLoadingVCShown) in
+            if wasLoadingVCShown == true {
+                self.dismissLoadingView()
+            }
+        }
     }
     
     // MARK: - Selectors
     
     // MARK: - API
     
-    func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser?.uid == nil {
-            loginVC.delegate = self
-            presentLoginController()
-        } else {
-            configure()
-        }
+    func checkIfUserIsLoggedIn(completion: @escaping(Bool) -> Void) {
+        var wasLoadingVCShown = true
+            if self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue) == false {
+                showLoadingView()
+                if Auth.auth().currentUser?.uid == nil {
+                    self.loginVC.delegate = self
+                    self.presentLoginController {
+                        print("Auth checkIfUserIsLoggedIn isUserNotFirstLogin == \(self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue))")
+                        completion(wasLoadingVCShown)
+                    }
+                } else {
+                    self.fetchUserData {
+                        self.defaults.setValue(true, forKey: SettingsKeys.isUserNotFirstLogin.rawValue)
+                        print("FetchUserData checkIfUserIsLoggedIn isUserNotFirstLogin == \(self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue))")
+                        completion(wasLoadingVCShown)
+                    }
+                }
+            } else {
+                wasLoadingVCShown = false
+                self.fetchUserRealmData {
+                    print("Realm checkIfUserIsLoggedIn isUserNotFirstLogin == \(self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue))")
+                    completion(wasLoadingVCShown)
+                }
+            }
     }
     
-    func fetchUserData() {
+    func fetchUserData(completion: @escaping() -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         Service.shared.fetchUserData(uid: currentUid) { user in
             self.user = user
+            RealmService.shared.add(user)
+            completion()
         }
     }
     
-    func signOut() {
+    func fetchUserRealmData(completion: @escaping() -> Void) {
+        let results = RealmService.shared.allObjectValues(User.self)
+        self.user = Array(results).first
+        completion()
+    }
+    
+    func signOut(completion: @escaping() -> Void) {
         do {
             try Auth.auth().signOut()
+            self.defaults.setValue(false, forKey: SettingsKeys.isUserNotFirstLogin.rawValue)
+            RealmService.shared.deleteAll()
+            print("signOut isUserNotFirstLogin == \(self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue))")
+            completion()
         } catch {
             print("DEBUG: Error signing out")
+            completion()
         }
     }
     
     // MARK: - Helper Functions
     
-    func presentLoginController() {
+    func presentLoginController(completion: @escaping() -> Void) {
         DispatchQueue.main.async {
             let nav = UINavigationController(rootViewController: self.loginVC)
             if #available(iOS 13.0, *) {
                 nav.isModalInPresentation = true
             }
             nav.modalPresentationStyle = .fullScreen
-            self.present(nav, animated: true, completion: nil)
+            self.present(nav, animated: true, completion: completion)
         }
     }
     
-    func configure() {
+    func showLoadingView() {
+        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.addSubview(loadingView)
+        loadingView.frame = view.frame
+        UIView.animate(withDuration: 0.1, animations: {
+            self.loadingView.alpha = 1
+        })
+    }
+    
+    func dismissLoadingView(completion: ((Bool) -> Void)? = nil) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loadingView.alpha = 0
+            self.loadingView.removeFromSuperview()
+        }, completion: completion)
+    }
+    
+    func configureUI() {
         view.backgroundColor = .systemBackground
-        fetchUserData()
     }
     
     // function to create view controllers that exist within tab bar controller
@@ -143,14 +194,15 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     }
 }
 
-
-
-
 // MARK: - LoginVCDelegate
 
 extension MainTabVC: LoginVCDelegate {
     func userLoginVC(_ controller: LoginVC) {
-        configure()
+        checkIfUserIsLoggedIn { (wasLoadingVCShown) in
+            if wasLoadingVCShown == true {
+                self.dismissLoadingView()
+            }
+        }
     }
 }
 
@@ -167,7 +219,12 @@ extension MainTabVC: EspressoVCDelegate {
 extension MainTabVC: AlternativaBrewVCDelegate {
     func userSignOut(_ controller: AlternativeBrewVC) {
         self.user = controller.user
-        signOut()
-        checkIfUserIsLoggedIn()
+        signOut {
+            self.checkIfUserIsLoggedIn { (wasLoadingVCShown) in
+                if wasLoadingVCShown == true {
+                    self.loadingVC.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
 }

@@ -111,9 +111,9 @@ class SignUpVC: UIViewController {
     // MARK: - Selectors
     
     @objc func handleSignUp() {
-        guard let email = emailTextField.text?.localizedLowercase else { return }
-        guard let password = passwordTextField.text else { return }
-        guard let fullname = fullnameTextField.text else { return }
+        guard let email = emailTextField.text?.localizedLowercase.trimmingCharacters(in: .whitespaces) else { return }
+        guard let password = passwordTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
+        guard let fullname = fullnameTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
         let accountTypeIndex = accountTypeSegmentedControl.selectedSegmentIndex
                 
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in

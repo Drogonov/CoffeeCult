@@ -11,7 +11,7 @@ import RealmSwift
 /// Represents a type that can be persisted using Realm.
 public protocol Persistable {
 
-    associatedtype ManagedObject: Object
+    associatedtype ManagedObject: RealmSwift.Object
     associatedtype PropertyValue: PropertyValueType = DefaultPropertyValue
     associatedtype Query: QueryType = DefaultQuery
 

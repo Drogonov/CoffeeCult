@@ -10,6 +10,6 @@ target 'CoffeeCult' do
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
     pod 'Firebase/Storage'
-    pod 'RealmSwift', '~> 4.4.1'
+    pod 'RealmSwift'
     
 end

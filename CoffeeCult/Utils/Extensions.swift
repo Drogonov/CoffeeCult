@@ -127,6 +127,16 @@ extension UIView {
     }
 }
 
+extension UIColor {
+    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
+        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
+    }
+    
+    static func googleRed() -> UIColor {
+        return UIColor.rgb(red: 220, green: 78, blue: 65)
+    }
+}
+
 extension UITextField {
     
     func textField(withPlaceholder placeholder: String, isSecureTextEntry: Bool) -> UITextField {
@@ -233,13 +243,13 @@ extension UITableView {
     
     func registerCells() {
         register(UITableViewCell.self, forCellReuseIdentifier: Cells.defaultCell)
-//        register(SettingsCell.self, forCellReuseIdentifier: Cells.settingsCell)
+        register(SettingsCell.self, forCellReuseIdentifier: Cells.settingsCell)
         register(ProfileCell.self, forCellReuseIdentifier: Cells.profileCell)
-//        register(PhotoBtnCell.self, forCellReuseIdentifier: Cells.photoBtnCell)
-//        register(TextFieldCell.self, forCellReuseIdentifier: Cells.textFieldCell)
-//        register(ActionBtnCell.self, forCellReuseIdentifier: Cells.actionBtnCell)
-//        register(EditBtnCell.self, forCellReuseIdentifier: Cells.editBtnCell)
-//        register(SegmentedControlCell.self, forCellReuseIdentifier: Cells.segmentedControlCell)
+        register(PhotoButtonCell.self, forCellReuseIdentifier: Cells.photoButtonCell)
+        register(TextFieldCell.self, forCellReuseIdentifier: Cells.textFieldCell)
+        register(ActionButtonCell.self, forCellReuseIdentifier: Cells.actionButtonCell)
+        register(EditButtonCell.self, forCellReuseIdentifier: Cells.editButtonCell)
+        register(SegmentedControlCell.self, forCellReuseIdentifier: Cells.segmentedControlCell)
     }
 }
 
@@ -254,6 +264,26 @@ extension Array where Element: Hashable {
 
     mutating func removeDuplicates() {
         self = self.removingDuplicates()
+    }
+}
+
+extension UIButton {
+    func setInsets(
+        forContentPadding contentPadding: UIEdgeInsets,
+        imageTitlePadding: CGFloat
+    ) {
+        self.contentEdgeInsets = UIEdgeInsets(
+            top: contentPadding.top,
+            left: contentPadding.left,
+            bottom: contentPadding.bottom,
+            right: contentPadding.right + imageTitlePadding
+        )
+        self.titleEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: imageTitlePadding,
+            bottom: 0,
+            right: -imageTitlePadding
+        )
     }
 }
 

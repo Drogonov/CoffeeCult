@@ -8,11 +8,11 @@
 import Foundation
 import RealmSwift
 
-public final class FetchedResults<T: Persistable> {
+final class FetchedResults<T: Persistable> {
 
     internal let results: Results<T.ManagedObject>
 
-    public var count: Int {
+    var count: Int {
         return results.count
     }
 
@@ -20,7 +20,7 @@ public final class FetchedResults<T: Persistable> {
         self.results = results
     }
 
-    public func value(at index: Int) -> T {
+    func value(at index: Int) -> T {
         return T(managedObject: results[index])
     }
 }
@@ -29,20 +29,20 @@ public final class FetchedResults<T: Persistable> {
 
 extension FetchedResults: Collection {
 
-    public var startIndex: Int {
+    var startIndex: Int {
         return 0
     }
 
-    public var endIndex: Int {
+    var endIndex: Int {
         return count
     }
 
-    public func index(after i: Int) -> Int {
+    func index(after i: Int) -> Int {
         precondition(i < endIndex)
         return i + 1
     }
 
-    public subscript(position: Int) -> T {
+    subscript(position: Int) -> T {
         return value(at: position)
     }
 }
