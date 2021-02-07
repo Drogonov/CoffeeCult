@@ -71,17 +71,17 @@ class AlternativeBrewVC: UIViewController {
     func configureUI() {
         configureNavigationBar()
         
-//        userAuthView.delegate = self
-//        userAuthView.config = .signUp
-//        view.addSubview(userAuthView)
-//        userAuthView.centerX(inView: view)
-//        userAuthView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-//                            left: view.safeAreaLayoutGuide.leftAnchor,
-//                            bottom: view.safeAreaLayoutGuide.bottomAnchor,
-//                            right: view.safeAreaLayoutGuide.rightAnchor)
-//        self.hideKeyboardWhenTappedAround()
-//        NotificationCenter.default.addObserver(self, selector: #selector(Keyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(Keyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        userAuthView.delegate = self
+        userAuthView.config = .signUp
+        view.addSubview(userAuthView)
+        userAuthView.centerX(inView: view)
+        userAuthView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            left: view.safeAreaLayoutGuide.leftAnchor,
+                            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                            right: view.safeAreaLayoutGuide.rightAnchor)
+        self.hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(Keyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(Keyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         authBottomButton.delegate = self
         authBottomButton.config = .comeBack
@@ -122,11 +122,11 @@ extension AlternativeBrewVC: AuthBottomButtonDelegate {
     }
 }
 
-//extension AlternativeBrewVC: UserAuthViewDelegate {
-//    func handleAuthButton() {
-//        print(userAuthView.config)
-//    }
-//}
+extension AlternativeBrewVC: UserAuthViewDelegate {
+    func handleAuthButton() {
+        print(userAuthView.config)
+    }
+}
 
 extension AlternativeBrewVC: AuthWithButtonDelegate {
     func handleAuthWithButton(for button: AuthWithButton) {
