@@ -1,5 +1,5 @@
 //
-//  UserAuthView.swift
+//  UserAuthWithEmailView.swift
 //  CoffeeCult
 //
 //  Created by Admin on 04.02.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol UserAuthViewDelegate: class {
+protocol UserAuthWithEmailViewDelegate: class {
     func handleAuthButton()
 }
 
@@ -24,7 +24,7 @@ class UserAuthWithEmailView: UIView {
     
     // MARK: - Properties
     
-    weak var delegate: UserAuthViewDelegate?
+    weak var delegate: UserAuthWithEmailViewDelegate?
     var config = UserAuthViewConfiguration() {
         didSet { configureUI(withConfig: config)}
     }

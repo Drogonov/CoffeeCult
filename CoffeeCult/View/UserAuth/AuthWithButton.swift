@@ -28,8 +28,10 @@ class AuthWithButton: UIButton {
     
     weak var delegate: AuthWithButtonDelegate?
     var config = AuthWithButtonConfiguration() {
-        didSet { configureUI(withConfig: config) }
+        didSet { configureUI(withConfig: config, withViewConfig: viewConfig) }
     }
+    var viewConfig = UserAuthViewConfiguration()
+    
     private let authWithButton: ActionButton = {
         let button = ActionButton(type: .system)
         button.contentHorizontalAlignment = .left
@@ -64,7 +66,9 @@ class AuthWithButton: UIButton {
         delegate?.handleAuthWithButton(for: self)
     }
     
-    func configureUI(withConfig config: AuthWithButtonConfiguration) {
+    func configureUI(withConfig config: AuthWithButtonConfiguration,
+                     withViewConfig viewConfig: UserAuthViewConfiguration) {
+        
         addSubview(authWithButton)
         authWithButton.anchor(top: self.topAnchor,
                               left: self.leftAnchor,
@@ -82,23 +86,32 @@ class AuthWithButton: UIButton {
                              paddingBottom: 8,
                              width: 34)
         
+        var titleText: String
+        
+        switch viewConfig {
+        case .login:
+            titleText = "Log in"
+        case .signUp:
+            titleText = "Sign up"
+        }
+        
         switch config {
         case .email:
             authWithButton.backgroundColor = .systemRed
-            authWithButton.setTitle("Sign in with Email", for: .normal)
+            authWithButton.setTitle("\(titleText) with Email", for: .normal)
             logoImageView.image = #imageLiteral(resourceName: "mail_white")
         case .google:
             authWithButton.backgroundColor = .white
             authWithButton.setTitleColor(.black, for: .normal)
-            authWithButton.setTitle("Sign in with Google", for: .normal)
+            authWithButton.setTitle("\(titleText) with Google", for: .normal)
             logoImageView.image = #imageLiteral(resourceName: "Google_logo")
         case .facebook:
             authWithButton.backgroundColor = .systemBlue
-            authWithButton.setTitle("Sign in with Facebook", for: .normal)
+            authWithButton.setTitle("\(titleText) with Facebook", for: .normal)
             logoImageView.image = #imageLiteral(resourceName: "Facebook_logo")
         case .apple:
             authWithButton.backgroundColor = .black
-            authWithButton.setTitle("Sign in with Apple", for: .normal)
+            authWithButton.setTitle("\(titleText) with Apple", for: .normal)
             logoImageView.image = #imageLiteral(resourceName: "Apple_logo")
         }
     }

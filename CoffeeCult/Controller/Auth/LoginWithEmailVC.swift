@@ -13,7 +13,7 @@ class LoginWithEmailVC: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var userAuthView = UserAuthView()
+    private lazy var userAuthView = UserAuthWithEmailView()
     private lazy var authBottomButton = AuthBottomButton()
     
     // MARK: - Lifecycle
@@ -109,7 +109,7 @@ extension LoginWithEmailVC: AuthBottomButtonDelegate {
 
 // MARK: - UserAuthViewDelegate
 
-extension LoginWithEmailVC: UserAuthViewDelegate {
+extension LoginWithEmailVC: UserAuthWithEmailViewDelegate {
     func handleAuthButton() {
         guard let email = userAuthView.emailTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
         guard let password = userAuthView.passwordTextField.text?.trimmingCharacters(in: .whitespaces) else { return }

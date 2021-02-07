@@ -40,10 +40,11 @@
 		8466F35225C31473002A97E3 /* PublisherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466F35125C31473002A97E3 /* PublisherObject.swift */; };
 		8466F35B25C3172F002A97E3 /* EspressoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466F35A25C3172F002A97E3 /* EspressoVC.swift */; };
 		8466F35E25C3294D002A97E3 /* AlternativeBrewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8466F35D25C3294D002A97E3 /* AlternativeBrewVC.swift */; };
+		84732CB525D068ED00AD4851 /* UserAuthWithView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84732CB425D068ED00AD4851 /* UserAuthWithView.swift */; };
 		848B181725CD410200484E9A /* AuthWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848B181625CD410200484E9A /* AuthWithButton.swift */; };
 		84AB4D1F25CC16E800E5A9F1 /* LoginWithEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4D1E25CC16E800E5A9F1 /* LoginWithEmailVC.swift */; };
 		84AB4D2325CC172D00E5A9F1 /* SignUpWithEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4D2225CC172D00E5A9F1 /* SignUpWithEmailVC.swift */; };
-		84AB4D2625CC20B100E5A9F1 /* UserAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4D2525CC20B100E5A9F1 /* UserAuthView.swift */; };
+		84AB4D2625CC20B100E5A9F1 /* UserAuthWithEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4D2525CC20B100E5A9F1 /* UserAuthWithEmailView.swift */; };
 		84AB4D2A25CC217700E5A9F1 /* AuthBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4D2925CC217700E5A9F1 /* AuthBottomButton.swift */; };
 		84AE1F6E25C4030E009DC170 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE1F6D25C4030D009DC170 /* LoginVC.swift */; };
 		84AE1F7225C40331009DC170 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AE1F7125C40331009DC170 /* SignUpVC.swift */; };
@@ -98,10 +99,11 @@
 		8466F35125C31473002A97E3 /* PublisherObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherObject.swift; sourceTree = "<group>"; };
 		8466F35A25C3172F002A97E3 /* EspressoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EspressoVC.swift; sourceTree = "<group>"; };
 		8466F35D25C3294D002A97E3 /* AlternativeBrewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativeBrewVC.swift; sourceTree = "<group>"; };
+		84732CB425D068ED00AD4851 /* UserAuthWithView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthWithView.swift; sourceTree = "<group>"; };
 		848B181625CD410200484E9A /* AuthWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWithButton.swift; sourceTree = "<group>"; };
 		84AB4D1E25CC16E800E5A9F1 /* LoginWithEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithEmailVC.swift; sourceTree = "<group>"; };
 		84AB4D2225CC172D00E5A9F1 /* SignUpWithEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpWithEmailVC.swift; sourceTree = "<group>"; };
-		84AB4D2525CC20B100E5A9F1 /* UserAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthView.swift; sourceTree = "<group>"; };
+		84AB4D2525CC20B100E5A9F1 /* UserAuthWithEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthWithEmailView.swift; sourceTree = "<group>"; };
 		84AB4D2925CC217700E5A9F1 /* AuthBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthBottomButton.swift; sourceTree = "<group>"; };
 		84AE1F6D25C4030D009DC170 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		84AE1F7125C40331009DC170 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -253,16 +255,13 @@
 		8466F33925C2FEC4002A97E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84732CB725D068F600AD4851 /* UserAuth */,
 				8418FC7725C8361800FCDAD7 /* UITableViewCells */,
 				84AE1F8B25C40D2D009DC170 /* ActionButton.swift */,
 				8418FC6E25C8346B00FCDAD7 /* EditButton.swift */,
 				8418FC7125C8349200FCDAD7 /* ProfileHeader.swift */,
 				8418FC7425C834EA00FCDAD7 /* ProfileSlider.swift */,
 				84649B7B25CAFCFC00883FD7 /* LoadingView.swift */,
-				84AB4D2525CC20B100E5A9F1 /* UserAuthView.swift */,
-				84B87DC925D05F7C0028862A /* SeparatorView.swift */,
-				84AB4D2925CC217700E5A9F1 /* AuthBottomButton.swift */,
-				848B181625CD410200484E9A /* AuthWithButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +294,18 @@
 				84AE1F7825C4037F009DC170 /* Service.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		84732CB725D068F600AD4851 /* UserAuth */ = {
+			isa = PBXGroup;
+			children = (
+				84732CB425D068ED00AD4851 /* UserAuthWithView.swift */,
+				84AB4D2525CC20B100E5A9F1 /* UserAuthWithEmailView.swift */,
+				84B87DC925D05F7C0028862A /* SeparatorView.swift */,
+				84AB4D2925CC217700E5A9F1 /* AuthBottomButton.swift */,
+				848B181625CD410200484E9A /* AuthWithButton.swift */,
+			);
+			path = UserAuth;
 			sourceTree = "<group>";
 		};
 		84AE1F7025C4031B009DC170 /* Auth */ = {
@@ -428,7 +439,7 @@
 				8466F33F25C3015C002A97E3 /* Character.swift in Sources */,
 				84AE1F6E25C4030E009DC170 /* LoginVC.swift in Sources */,
 				8418FC6F25C8346B00FCDAD7 /* EditButton.swift in Sources */,
-				84AB4D2625CC20B100E5A9F1 /* UserAuthView.swift in Sources */,
+				84AB4D2625CC20B100E5A9F1 /* UserAuthWithEmailView.swift in Sources */,
 				84649B7425CAACAF00883FD7 /* UserSettings.swift in Sources */,
 				8418FC7925C8363100FCDAD7 /* SettingsCell.swift in Sources */,
 				84AE1F9225C439AB009DC170 /* UserObject.swift in Sources */,
@@ -442,6 +453,7 @@
 				84AB4D2325CC172D00E5A9F1 /* SignUpWithEmailVC.swift in Sources */,
 				84AB4D1F25CC16E800E5A9F1 /* LoginWithEmailVC.swift in Sources */,
 				8418FC8925C836F900FCDAD7 /* ActionButtonCell.swift in Sources */,
+				84732CB525D068ED00AD4851 /* UserAuthWithView.swift in Sources */,
 				84AB4D2A25CC217700E5A9F1 /* AuthBottomButton.swift in Sources */,
 				840B2DF425C2E5E70022B812 /* AppDelegate.swift in Sources */,
 				8466F35225C31473002A97E3 /* PublisherObject.swift in Sources */,
