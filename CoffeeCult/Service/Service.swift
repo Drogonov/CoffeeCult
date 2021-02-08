@@ -138,6 +138,10 @@ struct Service {
         REF_USERS.child(userID).child(child).setValue(value, withCompletionBlock: completion)
     }
     
+    func updateUserValues(uid: String, values: [String: Any], completion: @escaping(Error?, DatabaseReference) -> Void) {
+        REF_USERS.child(uid).updateChildValues(values, withCompletionBlock: completion)
+    }
+    
     func deleteBaristaFromCompany(baristaUID: String, completion: @escaping(Error?, DatabaseReference) -> Void) {
         
         let values = ["companyID": "",

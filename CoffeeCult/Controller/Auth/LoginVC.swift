@@ -17,70 +17,16 @@ class LoginVC: UIViewController {
     
     // MARK: - Properties
     
-    private var logoSize: CGFloat = 100
-    private var logoImageViewWidthConstraint: NSLayoutConstraint!
-    private var logoImageViewHeightConstraint: NSLayoutConstraint!
-    
     weak var delegate: LoginVCDelegate?
     
-    private let logoImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "Znak_logo")
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "CoffeePRO"
-        label.font = UIFont(name: "Avenir-Light", size: 36)
-        label.textColor = .label
-        return label
-    }()
-    
-    private lazy var emailContainerView: UIView = {
-        let view = UIView().inputContainerView(image: UIImage().systemImage(withSystemName: "envelope"), textField: emailTextField)
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    private lazy var userAuthWithView: UserAuthWithView = {
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        let view = UserAuthWithView(frame: frame, config: .login)
         return view
     }()
-    
-    private lazy var passwordContainerView: UIView = {
-        let view = UIView().inputContainerView(image: UIImage().systemImage(withSystemName: "lock"), textField: passwordTextField)
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        return view
-    }()
-    
-    private let emailTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Email",
-                                       isSecureTextEntry: false)
-    }()
-    
-    private let passwordTextField: UITextField = {
-        return UITextField().textField(withPlaceholder: "Password",
-                                       isSecureTextEntry: true)
-    }()
-    
-    private let loginButton: ActionButton = {
-        let button = ActionButton(type: .system)
-        button.setTitle("Log In", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
-        return button
-    }()
-    
-    let dontHaveAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        
-        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.systemRed]))
-        
-        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
-        
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        return button
-    }()
+    private lazy var authBottomButton = AuthBottomButton()
+    private lazy var loginWithEmailVC = LoginWithEmailVC()
+    private lazy var singUpVC = SignUpVC()
     
     // MARK: - Lifecycle
     
@@ -89,70 +35,16 @@ class LoginVC: UIViewController {
         configureUI()
     }
     
-    // MARK: - Selectors
-    
-    @objc func handleLogin() {
-        guard let email = emailTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
-        guard let password = passwordTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
-        
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print("DEBUG: Failed to log user in with error \(error.localizedDescription)")
-                return
-            }
-            self.delegate?.userLoginVC(self)
-            self.dismiss(animated: true, completion: nil)            
-        }
-    }
-    
-    @objc func handleShowSignUp() {
-        let controller = SignUpVC()
-        navigationController?.pushViewController(controller, animated: true)
-        navigationController?.navigationBar.isHidden = true
-    }
-        
-    
-    @objc func Keyboard(notification: Notification) {
-
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            logoSize = 125
-            UIView.animate(withDuration: 0.5, animations: {
-                self.logoImageViewHeightConstraint.constant = self.logoSize
-                self.logoImageViewWidthConstraint.constant = self.logoSize
-            })
-        } else {
-            logoSize = 70
-            UIView.animate(withDuration: 0.5, animations: {
-                self.logoImageViewHeightConstraint.constant = self.logoSize
-                self.logoImageViewWidthConstraint.constant = self.logoSize
-              })
-        }
-        view.layoutIfNeeded()
-    }
-    
-    
     // MARK: - Helper Functions
         
     func configureUI() {
+        loginWithEmailVC.delegate = self
+        singUpVC.delegate = self
+    
         configureNavigationBar()
-        configureLogoImage()
+        configureUserAuthWithView()
+        configureAuthBottomButton()
         view.backgroundColor = .systemBackground
-                
-        let stack = UIStackView(arrangedSubviews: [emailContainerView,
-                                                   passwordContainerView,
-                                                   loginButton])
-        stack.axis = .vertical
-        stack.distribution = .fillEqually
-        stack.spacing = 20
-        
-        view.addSubview(stack)
-        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor,
-                     right: view.rightAnchor, paddingTop: 40, paddingLeft: 16,
-                     paddingRight: 16)
-        
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.centerX(inView: view)
-        dontHaveAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, height: 32)
     }
     
     func configureNavigationBar() {
@@ -161,21 +53,77 @@ class LoginVC: UIViewController {
         
     }
     
-    func configureLogoImage() {
+    func configureUserAuthWithView() {
+        userAuthWithView.delegate = self
         
-        view.addSubview(logoImageView)
-        logoImageView.centerX(inView: view)
-        logoImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 24)
-        
-        logoImageViewWidthConstraint = logoImageView.widthAnchor.constraint(equalToConstant: 125)
-        logoImageViewWidthConstraint.isActive = true
-        logoImageViewHeightConstraint = logoImageView.heightAnchor.constraint(equalToConstant: 125)
-        logoImageViewHeightConstraint.isActive = true
-        
-        self.hideKeyboardWhenTappedAround()
-        NotificationCenter.default.addObserver(self, selector: #selector(Keyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(Keyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+        view.addSubview(userAuthWithView)
+        userAuthWithView.centerX(inView: view)
+        userAuthWithView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            left: view.safeAreaLayoutGuide.leftAnchor,
+                            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                            right: view.safeAreaLayoutGuide.rightAnchor)
     }
+    
+    func configureAuthBottomButton() {
+        authBottomButton.delegate = self
+        authBottomButton.config = .login
         
+        view.addSubview(authBottomButton)
+        authBottomButton.centerX(inView: view)
+        authBottomButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
+    }
+    
+    func handleShowSignUp() {
+        navigationController?.pushViewController(singUpVC, animated: true)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    func handleShowLoginWithEmail() {
+        navigationController?.pushViewController(loginWithEmailVC, animated: true)
+        navigationController?.navigationBar.isHidden = true
+    }
+}
+
+// MARK: - UserAuthWithViewDelegate
+
+extension LoginVC: UserAuthWithViewDelegate {
+    func handleAuthButton(withConfig config: AuthWithButtonConfiguration) {
+        switch config {
+        case .email:
+            handleShowLoginWithEmail()
+        case .google:
+            print("Login with Google")
+        case .facebook:
+            print("Login with Facebook")
+        case .apple:
+            print("Login with Apple")
+        }
+    }
+}
+
+// MARK: - AuthBottomButtonDelegate
+
+extension LoginVC: AuthBottomButtonDelegate {
+    func handleAuthBottomButton(for button: AuthBottomButton) {
+        handleShowSignUp()
+    }
+}
+
+// MARK: - LoginWithEmailVCDelegate
+
+extension LoginVC: LoginWithEmailVCDelegate {
+    func loginWithVCEmail(_ controller: LoginWithEmailVC) {
+        delegate?.userLoginVC(self)
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - SignUpVCDelegate
+
+extension LoginVC: SignUpVCDelegate {
+    func userSignUpVC(_ controller: SignUpVC) {
+        delegate?.userLoginVC(self)
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 

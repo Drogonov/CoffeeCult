@@ -9,9 +9,15 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+protocol LoginWithEmailVCDelegate: class {
+    func loginWithVCEmail(_ controller: LoginWithEmailVC)
+}
+
 class LoginWithEmailVC: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: LoginWithEmailVCDelegate?
     
     private lazy var userAuthView = UserAuthWithEmailView()
     private lazy var authBottomButton = AuthBottomButton()
@@ -42,6 +48,10 @@ class LoginWithEmailVC: UIViewController {
         view.layoutIfNeeded()
     }
     
+    @objc func handleShowLogin() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     // MARK: - Helper Functions
         
@@ -49,7 +59,7 @@ class LoginWithEmailVC: UIViewController {
         configureNavigationBar()
         configureUserAuthView()
         configureAuthBottomButton()
-
+        view.backgroundColor = .systemBackground
     }
     
     func configureNavigationBar() {
@@ -82,28 +92,16 @@ class LoginWithEmailVC: UIViewController {
         authBottomButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
+    // MARK: - Protocol Functions
+    
     func handleLogin(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
                 print("DEBUG: Failed to log user in with error \(error.localizedDescription)")
                 return
             }
-            self.dismiss(animated: true, completion: nil)
+            self.delegate?.loginWithVCEmail(self)
         }
-    }
-    
-    func handleShowLogin() {
-        let controller = LoginVC()
-        navigationController?.pushViewController(controller, animated: true)
-        navigationController?.navigationBar.isHidden = true
-    }
-}
-
-// MARK: - AuthBottomButtonDelegate
-
-extension LoginWithEmailVC: AuthBottomButtonDelegate {
-    func handleAuthBottomButton(for button: AuthBottomButton) {
-        handleShowLogin()
     }
 }
 
@@ -114,5 +112,13 @@ extension LoginWithEmailVC: UserAuthWithEmailViewDelegate {
         guard let email = userAuthView.emailTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
         guard let password = userAuthView.passwordTextField.text?.trimmingCharacters(in: .whitespaces) else { return }
         handleLogin(email: email, password: password)
+    }
+}
+
+// MARK: - AuthBottomButtonDelegate
+
+extension LoginWithEmailVC: AuthBottomButtonDelegate {
+    func handleAuthBottomButton(for button: AuthBottomButton) {
+        handleShowLogin()
     }
 }

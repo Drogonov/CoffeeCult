@@ -20,9 +20,9 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
 //    private var knowledgeViewController: KnowledgeBaseVC!
 //    private var shopViewController: ShopVC!
     
-    private var loadingVC = LoadingViewController()
-    private var loadingView = LoadingView()
-    private var loginVC = LoginVC()
+    private lazy var loadingView = LoadingView()
+    private lazy var loginVC = LoginVC()
+    private lazy var loginWithEmail = LoginWithEmailVC()
     
     private var user: User? {
         didSet {
@@ -63,10 +63,13 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     
     func checkIfUserIsLoggedIn(completion: @escaping(Bool) -> Void) {
         var wasLoadingVCShown = true
+        
+        loginVC.delegate = self
+//        loginWithVCEmail.delegate = self
+        
             if self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue) == false {
                 showLoadingView()
                 if Auth.auth().currentUser?.uid == nil {
-                    self.loginVC.delegate = self
                     self.presentLoginController {
                         print("Auth checkIfUserIsLoggedIn isUserNotFirstLogin == \(self.defaults.bool(forKey: SettingsKeys.isUserNotFirstLogin.rawValue))")
                         completion(wasLoadingVCShown)
@@ -201,6 +204,7 @@ extension MainTabVC: LoginVCDelegate {
         checkIfUserIsLoggedIn { (wasLoadingVCShown) in
             if wasLoadingVCShown == true {
                 self.dismissLoadingView()
+                print("LoginVCDelegate")
             }
         }
     }
@@ -220,9 +224,10 @@ extension MainTabVC: AlternativaBrewVCDelegate {
     func userSignOut(_ controller: AlternativeBrewVC) {
         self.user = controller.user
         signOut {
+            print("signOut")
             self.checkIfUserIsLoggedIn { (wasLoadingVCShown) in
                 if wasLoadingVCShown == true {
-                    self.loadingVC.dismiss(animated: true, completion: nil)
+                    self.dismissLoadingView()
                 }
             }
         }

@@ -22,7 +22,6 @@ class AlternativeBrewVC: UIViewController {
     var user: User
     
     private lazy var authBottomButton = AuthBottomButton()
-    private lazy var authWithButton = AuthWithButton()
     
     // MARK: - Lifecycle
     
@@ -58,15 +57,6 @@ class AlternativeBrewVC: UIViewController {
         view.addSubview(authBottomButton)
         authBottomButton.centerX(inView: view)
         authBottomButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
-        
-        authWithButton.delegate = self
-        authWithButton.config = .facebook
-        view.addSubview(authWithButton)
-        authWithButton.centerX(inView: view)
-        authWithButton.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                              left: view.safeAreaLayoutGuide.leftAnchor,
-                              right: view.safeAreaLayoutGuide.rightAnchor,
-                              paddingTop: 40)
     }
     
     func configureNavigationBar() {
@@ -89,11 +79,6 @@ class AlternativeBrewVC: UIViewController {
 extension AlternativeBrewVC: AuthBottomButtonDelegate {
     func handleAuthBottomButton(for button: AuthBottomButton) {
         print(authBottomButton.config)
-    }
-}
-
-extension AlternativeBrewVC: AuthWithButtonDelegate {
-    func handleAuthWithButton(for button: AuthWithButton) {
-        print(authWithButton.config)
+        userSignOut()
     }
 }

@@ -255,13 +255,17 @@
 		8466F33925C2FEC4002A97E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				84732CB725D068F600AD4851 /* UserAuth */,
 				8418FC7725C8361800FCDAD7 /* UITableViewCells */,
 				84AE1F8B25C40D2D009DC170 /* ActionButton.swift */,
 				8418FC6E25C8346B00FCDAD7 /* EditButton.swift */,
 				8418FC7125C8349200FCDAD7 /* ProfileHeader.swift */,
 				8418FC7425C834EA00FCDAD7 /* ProfileSlider.swift */,
 				84649B7B25CAFCFC00883FD7 /* LoadingView.swift */,
+				84732CB425D068ED00AD4851 /* UserAuthWithView.swift */,
+				84AB4D2525CC20B100E5A9F1 /* UserAuthWithEmailView.swift */,
+				84B87DC925D05F7C0028862A /* SeparatorView.swift */,
+				84AB4D2925CC217700E5A9F1 /* AuthBottomButton.swift */,
+				848B181625CD410200484E9A /* AuthWithButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -294,18 +298,6 @@
 				84AE1F7825C4037F009DC170 /* Service.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		84732CB725D068F600AD4851 /* UserAuth */ = {
-			isa = PBXGroup;
-			children = (
-				84732CB425D068ED00AD4851 /* UserAuthWithView.swift */,
-				84AB4D2525CC20B100E5A9F1 /* UserAuthWithEmailView.swift */,
-				84B87DC925D05F7C0028862A /* SeparatorView.swift */,
-				84AB4D2925CC217700E5A9F1 /* AuthBottomButton.swift */,
-				848B181625CD410200484E9A /* AuthWithButton.swift */,
-			);
-			path = UserAuth;
 			sourceTree = "<group>";
 		};
 		84AE1F7025C4031B009DC170 /* Auth */ = {

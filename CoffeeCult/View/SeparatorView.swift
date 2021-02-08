@@ -19,21 +19,28 @@ class SeparatorView: UIView {
         label.textColor = .label
         label.font = UIFont.systemFont(ofSize: 14)
         dividerView.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerYAnchor.constraint(equalTo: dividerView.centerYAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo: dividerView.centerXAnchor).isActive = true
-        
+        label.centerX(inView: dividerView)
+        label.centerY(inView: dividerView)
+
         let separator1 = UIView()
         separator1.backgroundColor = .label
         dividerView.addSubview(separator1)
-        separator1.anchor(top: nil, left: dividerView.leftAnchor, bottom: nil, right: label.leftAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 1)
-        separator1.centerYAnchor.constraint(equalTo: dividerView.centerYAnchor).isActive = true
+        separator1.anchor(left: dividerView.leftAnchor,
+                          right: label.leftAnchor,
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          height: 1)
+        separator1.centerY(inView: dividerView)
         
         let separator2 = UIView()
         separator2.backgroundColor = .label
         dividerView.addSubview(separator2)
-        separator2.anchor(top: nil, left: label.rightAnchor, bottom: nil, right: dividerView.rightAnchor, paddingTop: 0, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 1)
-        separator2.centerYAnchor.constraint(equalTo: dividerView.centerYAnchor).isActive = true
+        separator2.anchor(left: label.rightAnchor,
+                          right: dividerView.rightAnchor,
+                          paddingLeft: 8,
+                          paddingRight: 8,
+                          height: 1)
+        separator2.centerY(inView: dividerView)
         
         return dividerView
     }()
@@ -51,11 +58,10 @@ class SeparatorView: UIView {
     
     func configureUI() {
         addSubview(dividerView)
-        dividerView.anchor(top: self.bottomAnchor,
+        dividerView.anchor(top: self.topAnchor,
                            left: self.leftAnchor,
                            bottom: self.bottomAnchor,
                            right: self.rightAnchor,
-                           paddingTop: 24,
                            paddingLeft: 32,
                            paddingRight: 32,
                            height: 50)

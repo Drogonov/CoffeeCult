@@ -27,9 +27,7 @@ class AuthWithButton: UIButton {
     // MARK: - Properties
     
     weak var delegate: AuthWithButtonDelegate?
-    var config = AuthWithButtonConfiguration() {
-        didSet { configureUI(withConfig: config, withViewConfig: viewConfig) }
-    }
+    var config = AuthWithButtonConfiguration()
     var viewConfig = UserAuthViewConfiguration()
     
     private let authWithButton: ActionButton = {
@@ -52,8 +50,11 @@ class AuthWithButton: UIButton {
 
     // MARK: - Init
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, config: AuthWithButtonConfiguration, viewConfig: UserAuthViewConfiguration) {
         super.init(frame: frame)
+        self.config = config
+        self.viewConfig = viewConfig
+        configureUI(withConfig: config, withViewConfig: viewConfig)
     }
     
     required init?(coder: NSCoder) {

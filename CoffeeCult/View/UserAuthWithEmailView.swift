@@ -124,6 +124,8 @@ class UserAuthWithEmailView: UIView {
     
     func configureUI(withConfig config: UserAuthViewConfiguration) {
         configureLogoImage()
+        backgroundColor = .systemBackground
+        
         switch config {
         case .login:
             actionButton.setTitle("Log In", for: .normal)
@@ -135,8 +137,11 @@ class UserAuthWithEmailView: UIView {
             stack.spacing = 20
             
             addSubview(stack)
-            stack.anchor(top: logoImageView.bottomAnchor, left: self.leftAnchor,
-                         right: self.rightAnchor, paddingTop: 40, paddingLeft: 16,
+            stack.anchor(top: logoImageView.bottomAnchor,
+                         left: self.leftAnchor,
+                         right: self.rightAnchor,
+                         paddingTop: 40,
+                         paddingLeft: 16,
                          paddingRight: 16)
             
         case .signUp:
@@ -151,8 +156,11 @@ class UserAuthWithEmailView: UIView {
             stack.spacing = 20
 
             addSubview(stack)
-            stack.anchor(top: logoImageView.bottomAnchor, left: self.leftAnchor,
-                         right: self.rightAnchor, paddingTop: 40, paddingLeft: 16,
+            stack.anchor(top: logoImageView.bottomAnchor,
+                         left: self.leftAnchor,
+                         right: self.rightAnchor,
+                         paddingTop: 40,
+                         paddingLeft: 16,
                          paddingRight: 16)
         }
     }
