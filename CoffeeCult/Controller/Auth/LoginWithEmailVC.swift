@@ -52,6 +52,19 @@ class LoginWithEmailVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - API
+    
+    func connectionCheck(completion: @escaping(Bool) -> Void) {
+        Service.shared.connectionCheck { (doesUserConnected) in
+            if doesUserConnected == true {
+                completion(doesUserConnected)
+            } else {
+                self.configureNetworkDisconnectedNotification()
+                completion(doesUserConnected)
+            }
+        }
+    }
+    
     
     // MARK: - Helper Functions
         
@@ -92,16 +105,31 @@ class LoginWithEmailVC: UIViewController {
         authBottomButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
+    func configureNetworkDisconnectedNotification() {
+        showNotification(title: "Кажется у вас проблемы с сетью",
+                         message: "Подключен ли интернет?",
+                         defaultAction: true,
+                         defaultActionText: "OK") { (config, _) in
+            switch config {
+            default: break
+            }
+        }
+    }
+    
     // MARK: - Protocol Functions
     
     func handleLogin(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print("DEBUG: Failed to log user in with error \(error.localizedDescription)")
-                return
+        connectionCheck { (doesUserConnected) in
+            if doesUserConnected == true {
+                Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        print("DEBUG: Failed to log user in with error \(error.localizedDescription)")
+                        return
+                    }
+                    self.delegate?.loginWithVCEmail(self)
+                }
             }
-            self.delegate?.loginWithVCEmail(self)
-        }
+        } 
     }
 }
 

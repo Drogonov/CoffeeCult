@@ -21,8 +21,6 @@ class AlternativeBrewVC: UIViewController {
     weak var delegate: AlternativaBrewVCDelegate?
     var user: User
     
-    private lazy var authBottomButton = AuthBottomButton()
-    
     // MARK: - Lifecycle
     
     init(user: User) {
@@ -51,12 +49,6 @@ class AlternativeBrewVC: UIViewController {
     
     func configureUI() {
         configureNavigationBar()
-        
-        authBottomButton.delegate = self
-        authBottomButton.config = .comeBack
-        view.addSubview(authBottomButton)
-        authBottomButton.centerX(inView: view)
-        authBottomButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
     func configureNavigationBar() {
@@ -73,12 +65,5 @@ class AlternativeBrewVC: UIViewController {
     
     func userSignOut() {
         delegate?.userSignOut(self)
-    }
-}
-
-extension AlternativeBrewVC: AuthBottomButtonDelegate {
-    func handleAuthBottomButton(for button: AuthBottomButton) {
-        print(authBottomButton.config)
-        userSignOut()
     }
 }

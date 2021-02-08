@@ -52,6 +52,19 @@ class SignUpWithEmailVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    // MARK: - API
+    
+    func connectionCheck(completion: @escaping(Bool) -> Void) {
+        Service.shared.connectionCheck { (doesUserConnected) in
+            if doesUserConnected == true {
+                completion(doesUserConnected)
+            } else {
+                self.configureNetworkDisconnectedNotification()
+                completion(doesUserConnected)
+            }
+        }
+    }
+    
     // MARK: - Helper Functions
     
     func configureUI() {
@@ -91,27 +104,43 @@ class SignUpWithEmailVC: UIViewController {
         authBottomButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor)
     }
     
+    func configureNetworkDisconnectedNotification() {
+        showNotification(title: "Кажется у вас проблемы с сетью",
+                         message: "Подключен ли интернет?",
+                         defaultAction: true,
+                         defaultActionText: "OK") { (config, _) in
+            switch config {
+            default: break
+            }
+        }
+    }
+    
     // MARK: - Protocol Functions
         
     func handleSignUp(email: String, password: String, fullname: String, accountTypeIndex: Int) {
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print("DEBUG: Failed to register user with error \(error.localizedDescription)")
-                return
-            }
-            
-            guard let uid = result?.user.uid else { return }
-            
-            let values = ["email": email,
-                          "fullname": fullname,
-                          "accountType": accountTypeIndex] as [String : Any]
-            
-            Service.shared.updateUserValues(uid: uid, values: values) { (err, ref) in
-                if let error = error {
-                    print("DEBUG: Failed to register user with error \(error.localizedDescription)")
-                    return
+        
+        connectionCheck { (doesUserConnected) in
+            if doesUserConnected == true {
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        print("DEBUG: Failed to register user with error \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let uid = result?.user.uid else { return }
+                    
+                    let values = ["email": email,
+                                  "fullname": fullname,
+                                  "accountType": accountTypeIndex] as [String : Any]
+                    
+                    Service.shared.updateUserValues(uid: uid, values: values) { (err, ref) in
+                        if let error = error {
+                            print("DEBUG: Failed to register user with error \(error.localizedDescription)")
+                            return
+                        }
+                        self.delegate?.signUpWithVCEmail(self)
+                    }
                 }
-                self.delegate?.signUpWithVCEmail(self)
             }
         }
     }
